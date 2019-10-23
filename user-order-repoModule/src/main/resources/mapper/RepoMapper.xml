@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>   
+    <!DOCTYPE mapper   
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.userorder.repoModule.mapper.RepoMapper">
+
+
+	<sql id="BaseColumnList">
+	    <![CDATA[
+			id,
+			createTime,
+			receiveName,
+			phone,
+			user_id,
+			totalPrice,
+			status,
+			description,
+			address,
+	    ]]>
+	</sql>
+
+ <update id="updateRepo">
+	 update product set count=count-#{number} where id=#{id}
+ </update>
+
+</mapper>
+

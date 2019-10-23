@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.userorder.OrderModule.mapper.OrderMapper">
+
+    <resultMap id="BaseResultMap" type="com.userorder.pojo.Order">
+        <id column="id" property="id"/>
+        <result property="createTime" column="creatTime"/>
+        <result property="receiveName" column="receieName"/>
+        <result property="phone" column="phone"/>
+        <result property="user_id" column="user_id"/>
+        <result property="totalPrice" column="totalPrice"/>
+        <result property="status" column="status"/>
+        <result property="description" column="desc"/>
+        <result property="address" column="address"/>
+    </resultMap>
+
+
+    <!-- Integer insertOrder(Order order);
+
+        List<Order> selectAllByUserId(Integer userId);
+    -->
+    <insert id="insertOrder" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+		INSERT INTO orders VALUES(null,#{user_id},#{address},#{createTime},#{receiveName},#{phone},#{status},#{description},#{totalPrice})
+	</insert>
+
+    <select id="selectAllByUserId" resultType="com.userorder.pojo.Order">
+		select
+		 id
+         user_id
+         address
+         creatTime as receiveName
+         receieName as createTime
+         phone
+         status
+         desc as description
+         totalPrice
+         from orders where user_id=#{user_id}
+	</select>
+    <!-- Integer insertOrderDetial(List<OrderDetail> ods);-->
+    <insert id="insertOrderDetial" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO orderdetail
+        VALUES
+        <foreach collection="list" item="order" separator=",">
+            (null,#{order.order_id}, #{order.product_id}, #{order.number},#{order.price})
+        </foreach>
+    </insert>
+
+</mapper>
+
